@@ -25,10 +25,10 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 # Copy existing application directory contents
-COPY ./../../docker /var/www/core
+COPY . /var/www/dispenser
 
 # Copy existing application directory permissions
-COPY --chown=www:www docker /var/www/core
+COPY --chown=www:www . /var/www/core
 
 # Change current user to www
 USER www
@@ -37,9 +37,6 @@ USER www
 RUN composer install
 RUN composer update --no-scripts
 RUN composer dump-autoload
-
-# Set /storage /public permission to public
-RUN chmod -R 777 storage/ public/
 
 
 
